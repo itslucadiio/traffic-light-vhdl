@@ -1,7 +1,5 @@
 <h2 align="center">Traffic Lights</h2>
 
-## Traffic Lights
-
 The main point of this project is to recreate a traffic light using the BASYS 3 and VHDL. For this, we will use a FSM - Finite State Machine - with the following diagram:
 
 [image]
@@ -11,13 +9,12 @@ The program will control the 3 discs for vehicles: green, amber and red, as well
 
 ## Table of contents
 
-- [Main Project](#Main Project)
+- [Main Project](#Main-project)
   - [FSM](#FSM)
   - [Counter](#Counter)
-  - [Display visualization](#Display visualization)
+  - [Display visualization](#Display-visualization)
   - [Blinking](#Blinking)
-  - [Flipflop T](#biestable-t)
-- [Counter Component](#Counter Component)
+- [Counter Component](#Counter-Component)
 
 
 ## Main Project
@@ -105,13 +102,47 @@ char1 <= disp1 when state reg=walk else
 
 ### Blinking
 
+There is a state of the FSM in which both the LED of the pedestrians traffic light and the time on the displays are displayed intermittently in order to warn about the end of green light. To achieve this, we first need to create a square wave signal at the desired frequency. Therefore, we use a clock divider and a process that generates a signal ‘blink’.
 
+````VHDL
+u6: clk divider
+  generic map (eoc => 10000000) 
+  port map (clk => clk, reset => reset, clk div => clk div blink);
 
+process( clk div blink ) begin
+  if rising edge ( clk div blink ) then blink <= NOT blink;
+  end if;
+end process;
+````
 
+## Counter Component
 
+This component is responsible for performing a countdown. As mentioned earlier, we use it twice: first, to maintain the flow of the FSM. When the button is pressed, we change state according to a certain time that must elapse. One way to keep the time without using a counter for each state is to count down the total time of the process. The other use we will give it will be to count down the pedestrians crossing time.
 
+As we will count using binary instead of decimal, because it's easier to keep track of the time later, we have to include the following libraries among the usual one:
 
+````VHDL
+use ieee.std_logic_unsigned.all;
+use ieee.numeric_std.all;
+````
 
+The process that we will use is the following:
+
+````VHDL
+down counter: process(clk div, reset)
+  variable cnt : std logic vector (4 downto 0) := num;
+begin
+if reset=’1’ or rst en=’1’ then cnt := num;
+elsif rising   edge ( clk   div ) then 
+  if enable=’1’ then
+    if cnt=”00000” then cnt := num;
+    else cnt := std logic vector (to unsigned(to integer(unsigned(cnt))  1, 5));
+    end if;
+  end if; 
+end if;
+c <= cnt; 
+end process;
+````
 
 ## Copyright and license
 
