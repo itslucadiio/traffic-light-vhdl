@@ -25,11 +25,11 @@ This entity will be the mother project. In other words, it is the central projec
 
 ````VHDL
 entity pr7 is 
-  Port (polsador : in std logic ;
-        clk, reset : in STD LOGIC;
-        cat : out STD LOGIC VECTOR (7 downto 0); 
-        an : out STD LOGIC VECTOR (3 downto 0); 
-        LED : out STD LOGIC VECTOR (15 downto 0)
+  Port (polsador : in std_logic ;
+        clk, reset : in STD_LOGIC;
+        cat : out STD_LOGIC_VECTOR (7 downto 0); 
+        an : out STD_LOGIC_VECTOR (3 downto 0); 
+        LED : out STD_LOGIC_VECTOR (15 downto 0)
        ); 
 end pr7;
 ````
@@ -50,16 +50,16 @@ We will use two counting processes, which are based on a single component called
 ````VHDL
 u2: counter
   generic map(num => ”11001”) 
-  port map (rst en => rst en,
+  port map (rst en => rst_en,
             enable => enable,
-            clk div => clk div 1s, 
+            clk div => clk_div_1s, 
             reset => reset,
             c => c);
 u7: counter
   generic map(num => ”01111”) 
-  port map (rst en => rst en,
-            enable => enable b, 
-            clk div => clk div 1s, 
+  port map (rst en => rst_en,
+            enable => enable_b, 
+            clk div => clk_div_1s, 
             reset => reset,
             c =>cb);
 ````
@@ -71,7 +71,7 @@ u1: clk divider
   generic map (eoc => 100000000) 
   port map (clk => clk,
           reset => reset,
-          clk div => clk div 1s);
+          clk div => clk_div_1s);
 ````
 
 You can see the full code in the file: pr7.vhdl
@@ -83,11 +83,11 @@ To visualize the time on the displays, we need the component that we have alread
 ````VHDL
 u3: clk divider
   generic map (eoc => 100000) 
-  port map (clk => clk, reset => reset, clk div => clk div);
+  port map (clk => clk, reset => reset, clk_div => clk_div);
   
 u4: seg7 coder
   port map (char0 => char0, char1 => char1, char2 => ”1111”, char3 => ”1111”, clk => clk,
-            reset => reset, clk div => clk div, cat => cat, an => an);
+            reset => reset, clk_div => clk div, cat => cat, an => an);
 ````
 
 There is a state that requires the intermittency of the value displayed by the displays. To achieve this, we use the following assignment:
@@ -111,10 +111,10 @@ There is a state of the FSM in which both the LED of the pedestrians traffic lig
 ````VHDL
 u6: clk divider
   generic map (eoc => 10000000) 
-  port map (clk => clk, reset => reset, clk div => clk div blink);
+  port map (clk => clk, reset => reset, clk_div => clk_div_blink);
 
-process( clk div blink ) begin
-  if rising edge ( clk div blink ) then blink <= NOT blink;
+process( clk_div_blink ) begin
+  if rising_edge( clk_div_blink ) then blink <= NOT blink;
   end if;
 end process;
 ````
@@ -135,14 +135,14 @@ use ieee.numeric_std.all;
 The process that we will use is the following:
 
 ````VHDL
-down counter: process(clk div, reset)
-  variable cnt : std logic vector (4 downto 0) := num;
+down counter: process(clk_div, reset)
+  variable cnt : std_logic_vector (4 downto 0) := num;
 begin
 if reset=’1’ or rst en=’1’ then cnt := num;
-elsif rising   edge ( clk   div ) then 
+elsif rising_edge ( clk_div ) then 
   if enable=’1’ then
     if cnt=”00000” then cnt := num;
-    else cnt := std logic vector (to unsigned(to integer(unsigned(cnt))  1, 5));
+    else cnt := std_logic_vector(to_unsigned(to_integer(unsigned(cnt))  1, 5));
     end if;
   end if; 
 end if;
