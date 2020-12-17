@@ -1,5 +1,4 @@
-<h3 align="center">Traffic Light</h3>
-
+<h2 align="center">Traffic Lights</h2>
 
 ## Traffic Lights
 
@@ -11,6 +10,17 @@ The program will control the 3 discs for vehicles: green, amber and red, as well
 
 
 ## Table of contents
+
+- [Document of the project](#TrafficLights)
+- Sources:
+  - [Main Project](#pr7)
+  - [Counter](#Counter)
+  - [7 Segments Coder](#seg7_coder)
+  - [Clock divider](#clk_divider)
+  - [Binary to BCD converter](#bin2bcd)
+  - [Flipflop T](#biestable-t)
+  
+
 
 
 ## Copyright and license
