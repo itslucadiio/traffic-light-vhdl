@@ -151,7 +151,7 @@ end process;
 ````
 
 You can see the full code in the file: counter.vhdl
-Other components used here and not explained can be found at: clk_divider.vhdl, bin2bcd.vhdl and 7seg_coder.vhdl
+Other components used here and not explained can be found at: clk_divider.vhdl, bin2bcd.vhdl, biestable-t.vhdl and 7seg_coder.vhdl
 
 ## Copyright and license
 
