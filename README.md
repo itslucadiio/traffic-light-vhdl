@@ -100,6 +100,8 @@ char1 <= disp1 when state reg=walk else
          else ”1111”;
 ````
 
+You can see the full code in the file: pr7.vhdl
+
 ### Blinking
 
 There is a state of the FSM in which both the LED of the pedestrians traffic light and the time on the displays are displayed intermittently in order to warn about the end of green light. To achieve this, we first need to create a square wave signal at the desired frequency. Therefore, we use a clock divider and a process that generates a signal ‘blink’.
@@ -114,6 +116,8 @@ process( clk div blink ) begin
   end if;
 end process;
 ````
+
+You can see the full code in the file: pr7.vhdl
 
 ## Counter Component
 
@@ -144,6 +148,9 @@ c <= cnt;
 end process;
 ````
 
+You can see the full code in the file: counter.vhdl
+Other components used here and not explained can be found at: clk_divider.vhdl, bin2bcd.vhdl and 7seg_coder.vhdl
+
 ## Copyright and license
 
-Code and documentation copyright 2020–2030 the [Luca Di Iorio]. Docs released under [Creative Commons](https://creativecommons.org/licenses/by/3.0/).
+Code and documentation copyright 2020–2030 of Luca Di Iorio. Docs released under [Creative Commons](https://creativecommons.org/licenses/by/3.0/).
