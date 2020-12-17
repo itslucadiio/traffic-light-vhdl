@@ -93,12 +93,12 @@ u4: seg7 coder
 There is a state that requires the intermittency of the value displayed by the displays. To achieve this, we use the following assignment:
 
 ````VHDL
-char0 <= disp0 when state reg=walk else
-         disp0 when state reg=end walk and blink=’0’ 
+char0 <= disp0 when state:reg=walk else
+         disp0 when state_reg=end_walk and blink=’0’ 
          else ”1111”;
          
-char1 <= disp1 when state reg=walk else
-         disp1 when state reg=end walk and blink=’0’ 
+char1 <= disp1 when state_reg=walk else
+         disp1 when state_reg=end_walk and blink=’0’ 
          else ”1111”;
 ````
 
